@@ -1,6 +1,6 @@
 //cd C:\Users\amina\OneDrive - University College London\Coding projects\BN
-import java.lang.Math;
-import java.util.Random;
+
+import java.util.*;
 public class Phase2 {
   public static void main(String[] args){
     int[][] matrix = new int[10][10];
@@ -44,32 +44,8 @@ for(; i < 20; i++){
           }
           else{i--;}
         }
-
-
-
-// if the cell next to it e.g. matrix[0][x + 1 ] == 0 then matrix[0][x + 1 ] ==2
-  int a = 0;
-  int b = 0;
-
-  while(b < 9 && a < 9){
-    if (matrix[a][b] == 0){
-      matrix[a][b] = 2;
-      b++;
-      a++;
-    }
-    else if (matrix[a - 1][b] == 0){
-      matrix[a - 1][b] = 2;
-    }
-    else if (matrix[a][b - 1] == 0){
-      matrix[a][b - 1] = 2;
-    }
-    else if (matrix[a + 1][b] == 0){
-      matrix[a + 1][b] = 2;
-    }
-    else if (matrix[a][b + 1] == 0){
-      matrix[a][b + 1] = 2;
-    }
-  }
+        
+  driveVehicle(matrix);
 
   int count = 0;
   for (int l = 0; l < 10; l++) {
@@ -81,5 +57,68 @@ for(; i < 20; i++){
              }
       }
       System.out.println("The number of steps are: " + count);
+  }
+  public static void driveVehicle(int[][] matrix ){
+    try{
+      int x = 0;
+      int y = 0;
+    while (matrix[9][9]!= 2){
+     
+        if (matrix[x][y] == 0) {
+          matrix[x][y] = 2;
+          //resets the counter so it starts from the second row, first column etc
+          if(x < 10){ x++; } else{ y++; x = 0;}
+        } else{
+          
+          if(matrix[x++][y] == 1){
+           if (matrix[x--][y] == 1){
+            if (matrix[x][y++] ==1){
+              if (matrix[x][y--] == 1){
+                if(matrix[x--][y++] == 1){
+                  if(matrix[x++][y++] ==1){
+                    if (matrix[x--][y--] ==1){
+                      if(matrix[x++][y--] ==1){
+                        break;
+                      }else{
+                        matrix[x++][y--] =2;
+                        if(x < 10){ x++; } else{ y++; x = 0;}
+                      }
+                    }else{
+                      matrix[x--][y--] =2;
+                      if(x < 10){ x++; } else{ y++; x = 0;}
+                    }
+                  } else{
+                    matrix[x++][y++] = 2;
+                    if(x < 10){ x++; } else{ y++; x = 0;}
+
+                  }
+                }else{
+                  matrix[x--][y++] =2;
+                  if(x < 10){ x++; } else{ y++; x = 0;}
+                }
+              }else{
+                matrix[x][y--] = 2;
+                if(x < 10){ x++; } else{ y++; x = 0;}
+              }
+            }else{
+              matrix[x][y++] = 2;
+              if(x < 10){ x++; } else{ y++; x = 0;}
+            }
+           } else{
+            matrix[x--][y] = 2;
+            if(x < 10){ x++; } else{ y++; x = 0;}
+           }
+          }else{
+            matrix[x++][y] = 2;
+            if(x < 10){ x++; } else{ y++; x = 0;}
+          }
+
+         
+        }
+      
+    }
+    } catch (Exception e){
+      System.out.println("Unable to reach delivery point as too many obstacles are in the way ");
+    }
   }
 }
