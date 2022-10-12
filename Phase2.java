@@ -58,63 +58,49 @@ for(; i < 20; i++){
       }
       System.out.println("The number of steps are: " + count);
   }
+  public static boolean obstacleCheck(int[][] matrix,int x, int y){
+    if(x < 10 && y < 10 && x < 10 && y < 10 ){
+      return matrix[x][y] == 0;
+    }
+    return false;
+  }
   public static void driveVehicle(int[][] matrix ){
     try{
       int x = 0;
       int y = 0;
     while (matrix[9][9]!= 2){
-     
-        if (matrix[x][y] == 0) {
-          matrix[x][y] = 2;
-          //resets the counter so it starts from the second row, first column etc
-          if(x < 10){ x++; } else{ y++; x = 0;}
-        } else{
-          
-          if(matrix[x++][y] == 1){
-           if (matrix[x--][y] == 1){
-            if (matrix[x][y++] ==1){
-              if (matrix[x][y--] == 1){
-                if(matrix[x--][y++] == 1){
-                  if(matrix[x++][y++] ==1){
-                    if (matrix[x--][y--] ==1){
-                      if(matrix[x++][y--] ==1){
-                        break;
-                      }else{
-                        matrix[x++][y--] =2;
-                        if(x < 10){ x++; } else{ y++; x = 0;}
-                      }
-                    }else{
-                      matrix[x--][y--] =2;
-                      if(x < 10){ x++; } else{ y++; x = 0;}
-                    }
-                  } else{
-                    matrix[x++][y++] = 2;
-                    if(x < 10){ x++; } else{ y++; x = 0;}
 
-                  }
-                }else{
-                  matrix[x--][y++] =2;
-                  if(x < 10){ x++; } else{ y++; x = 0;}
-                }
-              }else{
-                matrix[x][y--] = 2;
-                if(x < 10){ x++; } else{ y++; x = 0;}
-              }
-            }else{
-              matrix[x][y++] = 2;
-              if(x < 10){ x++; } else{ y++; x = 0;}
-            }
-           } else{
-            matrix[x--][y] = 2;
-            if(x < 10){ x++; } else{ y++; x = 0;}
-           }
-          }else{
+          if (obstacleCheck(matrix, x, y) == true ){
+            matrix[x][y] = 2;
+            x++;
+          }else if(obstacleCheck(matrix, x++, y) == true ){
             matrix[x++][y] = 2;
-            if(x < 10){ x++; } else{ y++; x = 0;}
+            x++;
+          }else if(obstacleCheck(matrix, x--, y) == true){
+            matrix[x--][y] = 2;
+            y++;
+          } else if(obstacleCheck(matrix, x, y++) == true){
+            matrix[x][y++] = 2;
+            x++;
+          } else if(obstacleCheck(matrix, x, y--) == true){
+            matrix[x][y--] = 2;
+            x++;
+          } else if(obstacleCheck(matrix, x--, y++) == true){
+            matrix[x--][y++] =2;
+            x++;
+          } else if(obstacleCheck(matrix, x++, y++) == true){
+            matrix[x++][y++] = 2;
+            x++;
+          } else if(obstacleCheck(matrix, x--, y--) == true){
+            matrix[x--][y--] =2;
+            x++;
+          } else if(obstacleCheck(matrix, x++, y--) == true){
+            matrix[x++][y--] =2;
+            x++;
+          } else {
+             y++;
+             x = 0;
           }
-
-         
-        }
       
     }
     } catch (Exception e){
